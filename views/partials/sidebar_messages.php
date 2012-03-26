@@ -1,0 +1,1 @@
+<li><a class="sidebar_icon" href="<?= base_url() ?>home/places"><img src="<?= $this_module_assets ?>places_24.png"><span>Places</span></a></li>
