@@ -12,4 +12,4 @@
 * Description: Config file for Places App
 */
 
-$config['places_path']		= 'places/';
+$config['places_path']			= 'places/';

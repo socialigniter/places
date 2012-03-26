@@ -1,1 +1,1 @@
-<h3>App Template Widgets</h3>
+<h3>Places Widgets</h3>

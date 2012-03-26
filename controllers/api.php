@@ -19,7 +19,57 @@ class Api extends Oauth_Controller
 	{
 		// Load
 		$this->load->library('installer');
-		$this->load->config('install');        
+		$this->load->config('install');
+		$this->load->dbforge();
+
+		// Create Places Table
+		$this->dbforge->add_key('place_id', TRUE);
+		$this->dbforge->add_field(array(
+			'place_id' => array(
+				'type' 					=> 'INT',
+				'constraint' 			=> 16,
+				'unsigned' 				=> TRUE,
+				'auto_increment'		=> TRUE
+			),
+			'content_id' => array(
+				'type' 					=> 'INT',
+				'constraint' 			=> '11',
+				'null'					=> TRUE
+			),
+			'address' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 128,
+				'null'					=> TRUE
+			),
+			'district' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 128,
+				'null'					=> TRUE
+			),
+			'locality' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 128,
+				'null'					=> TRUE
+			),
+			'region' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 128,
+				'null'					=> TRUE
+			),
+			'country' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 128,
+				'null'					=> TRUE
+			),
+			'postal' => array(
+				'type'					=> 'VARCHAR',
+				'constraint'			=> 32,
+				'null'					=> TRUE
+			)										
+		));
+
+		$this->dbforge->create_table('places');
+
 
 		// Settings & Create Folders
 		$settings = $this->installer->install_settings('places', config_item('places_settings'));
@@ -38,8 +88,8 @@ class Api extends Oauth_Controller
 	
 
     function all_get()
-    {        
-        if($places = $this->places_igniter->get_places_view('type', 'place', FALSE, 'all'))
+    {
+        if ($places = $this->places_igniter->get_places_view('type', 'place', FALSE, 'all'))
         {
             $message = array('status' => 'success', 'data' => $places);
         }
@@ -47,10 +97,10 @@ class Api extends Oauth_Controller
         {
             $message = array('status' => 'error', 'message' => 'Could not find any locations');
         }
-        
+
         $this->response($message, 200);
     }
-    
+
  	function create_authd_post()
 	{
 		// Validation Rules

@@ -20,3 +20,5 @@ $route['places/api/create']								= 'api/create';
 
 $route['places/home/manage/(:num)']						= 'home/places_editor';
 $route['places/home/create']							= 'home/places_editor';
+
+$route['places/view/(:num)']							= 'places/view';

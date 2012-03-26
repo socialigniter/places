@@ -5,7 +5,8 @@ class Home extends Dashboard_Controller
     {
         parent::__construct();
 
-		$this->load->config('config');
+		$this->load->config('places');
+		$this->load->library('places_igniter');
 
 		$this->data['page_title'] = 'Places';
 	}
@@ -20,7 +21,7 @@ class Home extends Dashboard_Controller
 		if (($this->uri->segment(3) == 'manage') && ($this->uri->segment(4)))
 		{
 			// Need is valid & access and such
-			$place = $this->social_tools->get_place('content_id', $this->uri->segment(4));
+			$place = $this->places_igniter->get_place('content_id', $this->uri->segment(4));
 			if (!$place) redirect(base_url().'home/error');
 
 			// Non Form Fields
