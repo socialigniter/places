@@ -2,35 +2,32 @@
 
 	<div id="content_wide_content">
 		<h3>Title</h3>
-		<input type="text" name="title" id="title" class="input_full" value="<?= $title ?>">
+		<input type="text" name="title" id="title" class="input_full" placeholder="Joes Oyster Shack" value="<?= $title ?>">
 		<p id="title_slug" class="slug_url"></p>
 		
 		<div id="place_address">
 			<h3>Address</h3>
-			<p><input type="text" name="address" id="address" class="input_bigger" value="<?= $address ?>"></p>
-			<p><input type="text" name="district" id="district" class="input_bigger" value="<?= $district ?>"></p>
+			<p><input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>"></p>
+			<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 			<p>
-				<input type="text" name="locality" id="locality" class="input_small" value="<?= $locality ?>">
-				<input type="text" name="region" id="region" class="input_mini" value="<?= $region ?>">
-				<input type="text" name="postal" id="postal" class="input_small" value="<?= $postal ?>">
+				<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">
+				<input type="text" name="region" id="region" class="input_mini" placeholder="DC" value="<?= $region ?>">
+				<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
 			</p>
-			<div id="place_country"><?= country_dropdown('country', config_item('countries'), $country) ?></div>
-			<a href="#" id="place_map_it">Map It</a>
-			<div class="clear"></div>
+			<p><?= country_dropdown('country', config_item('countries'), $country) ?></p>
+			<p><a href="#" id="place_map_it">Map It</a></p>
 		</div>
-
 		<div id="place_map">
 			<h3>Map</h3>
 			<div id="place_map_map" class="map"></div>
-		</div>
-		
+		</div>		
 		<div class="clear"></div>
 	
 		<p><a href="#" id="add_details">Add More Details</a></p>
 		<div id="place_details" style="display:none">
 
 			<h3>Description</h3>
-			<p><textarea name="content" id="place_content" rows="4" cols="100"><?= $content ?></textarea></p>
+			<p><textarea name="content" id="place_content" rows="4" cols="100" placeholder="Joe is a good man but he makes even better oysters..."><?= $content ?></textarea></p>
 	
 		    <h3>Category</h3>
 		    <p><?= form_dropdown('category_id', $categories, $category_id, 'id="category_id"') ?></p>
@@ -46,22 +43,21 @@
 		
 		</div>
 
-		<input type="hidden" name="details" id="details" value="<?= $details ?>" />		
-		<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>" />
-		<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>" />
+		<input type="hidden" name="details" id="details" value="<?= $details ?>">		
+		<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>">
+		<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>">
 
 	</div>
-	
+
 	<div id="content_wide_toolbar">
 		<?= $content_publisher ?>
-	</div>	
-	
+	</div>
+
 </form>
 <div class="clear"></div>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-
 // Elements for Placeholder
 var validation_rules = [{
 	'element' 	: '#title', 
@@ -87,21 +83,10 @@ var validation_rules = [{
 	'element' 	: '#postal', 
 	'holder'	: '90000', 
 	'message'	: ''	
-},{
-	'element' 	: '#place_content', 
-	'holder'	: 'Joe is a good man but he makes even better oysters...', 
-	'message'	: ''	
-},{
-	'element' 	: '#tags', 
-	'holder'	: 'Oysters, Lobster, Seafood', 
-	'message'	: ''	
-}]
+}];
 
 $(document).ready(function()
 {
-	// Placeholders
-	makePlaceholders(validation_rules);
-
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
@@ -113,7 +98,7 @@ $(document).ready(function()
 	getMap(initial_place, 'place_map_map');
 	
 	// On Completing Address
-	$('[name=postal], [name=region], [name=locality]').live('blur', function(eve)
+	$('[name=postal], [name=region], [name=locality]').live('blur', function()
 	{
 		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
 		{
@@ -123,9 +108,9 @@ $(document).ready(function()
 	});
 
 	// Click Map It
-	$('#place_map_it').live('click', function(eve)
+	$('#place_map_it').live('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
 		getMapGeocode(address, '#geo_lat', '#geo_long');
 	
