@@ -18,7 +18,7 @@ class Places_igniter
 	{
 		$this->ci =& get_instance();
 	
-		$this->ci->load->model('places_model');
+		$this->ci->load->model('places/places_model');
 	}
 
 
