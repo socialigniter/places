@@ -24,52 +24,8 @@ class Api extends Oauth_Controller
 
 		// Create Places Table
 		$this->dbforge->add_key('place_id', TRUE);
-		$this->dbforge->add_field(array(
-			'place_id' => array(
-				'type' 					=> 'INT',
-				'constraint' 			=> 16,
-				'unsigned' 				=> TRUE,
-				'auto_increment'		=> TRUE
-			),
-			'content_id' => array(
-				'type' 					=> 'INT',
-				'constraint' 			=> '11',
-				'null'					=> TRUE
-			),
-			'address' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 128,
-				'null'					=> TRUE
-			),
-			'district' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 128,
-				'null'					=> TRUE
-			),
-			'locality' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 128,
-				'null'					=> TRUE
-			),
-			'region' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 128,
-				'null'					=> TRUE
-			),
-			'country' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 128,
-				'null'					=> TRUE
-			),
-			'postal' => array(
-				'type'					=> 'VARCHAR',
-				'constraint'			=> 32,
-				'null'					=> TRUE
-			)										
-		));
-
+		$this->dbforge->add_field(config_item('database_places_places_table'));
 		$this->dbforge->create_table('places');
-
 
 		// Settings & Create Folders
 		$settings = $this->installer->install_settings('places', config_item('places_settings'));
