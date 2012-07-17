@@ -56,6 +56,7 @@
 </form>
 <div class="clear"></div>
 
+<script type="text/javascript" src="<?= $modules_assets ?>places.js"></script>
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 // Elements for Placeholder
