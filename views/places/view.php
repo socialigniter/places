@@ -12,7 +12,7 @@
 <p>
   <div id="map" style="width:800px; height:300px;"></div>
 </p>
- <script src="http://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluua20utlu%2C2a%3Do5-967au0"></script> 
+ <script src="https://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluua20utlu%2C2a%3Do5-967au0"></script> 
 
   <script type="text/javascript"> 
 
