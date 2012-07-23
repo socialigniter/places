@@ -159,7 +159,7 @@ $(document).ready(function()
 	});
 	
 	// Specify API URL
-	$.data(document.body, 'api_url', $('#places_editor').attr('action'));	
+	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));	
 	
 
 });
