@@ -53,6 +53,7 @@ class Home extends Dashboard_Controller
 			$this->data['region']			= $place->region;
 			$this->data['country']			= $place->country;
 			$this->data['postal']			= $place->postal;
+			$this->data['address_string'] 	= $place->address.', '.$place->locality.', '.$place->region;
 		}
 		else
 		{
@@ -79,6 +80,7 @@ class Home extends Dashboard_Controller
 			$this->data['region']			= '';
 			$this->data['country']			= 'US';
 			$this->data['postal']			= '';			
+			$this->data['address_string'] 	= '';
 		}
 
 		$this->data['form_module']			= 'places';

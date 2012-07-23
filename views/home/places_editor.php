@@ -19,7 +19,7 @@
 		</div>
 		<div id="place_map">
 			<h3>Map</h3>
-			<div id="place_map_map" class="map"></div>
+			<div id="place_map_map" rel="place_map_map" class="map"></div>
 		</div>		
 		<div class="clear"></div>
 	
@@ -56,8 +56,9 @@
 </form>
 <div class="clear"></div>
 
-<script type="text/javascript" src="<?= $modules_assets ?>places.js"></script>
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/gmap3.min.js"></script>
+<script type="text/javascript" src="<?= $modules_assets ?>places.js"></script>
 <script type="text/javascript">
 // Elements for Placeholder
 var validation_rules = [{
@@ -91,31 +92,42 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
+
 	// Autocomplete Tags
 	autocomplete("[name=tags]", 'api/tags/all');
 
-	// Initialize Map
-    var initial_place = new google.maps.LatLng(<?= $geo_lat ?>, <?= $geo_long ?>);	
-	getMap(initial_place, 'place_map_map');
-	
+
 	// On Completing Address
 	$('[name=postal], [name=region], [name=locality]').live('blur', function()
 	{
 		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
 		{
 			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
-			getMapGeocode(address, '#geo_lat', '#geo_long');
+			renderMapTile('#place_map_map', address);
 		}
 	});
+
 
 	// Click Map It
 	$('#place_map_it').live('click', function(e)
 	{
 		e.preventDefault();
 		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
-		getMapGeocode(address, '#geo_lat', '#geo_long');
-	
+		renderMapTile('#place_map_map', address);
 	});
+
+
+	// Do Existing Address
+	if (($('#geo_lat').val() != '0.00') && ($('#geo_long').val() != '0.00'))
+	{
+		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
+		renderMapTile('#place_map_map', address);
+	}
+	else
+	{
+		renderMapTile('#place_map_map', 'Portland, OR');
+	}
+	
 
 	// Add Details
 	$('#add_details').live('click', function(eve)
@@ -124,6 +136,7 @@ $(document).ready(function()
 		$(this).hide();
 		$('#place_details').show('slow');
 	});
+
 
 	// Add Category
 	$('#category_id').categoryManager(

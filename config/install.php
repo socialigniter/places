@@ -26,7 +26,7 @@ $config['places_settings']['tags_display']			= 'no';
 
 
 // Places Database Table
-$config['database_messages_messages_table'] = array(
+$config['database_places_places_table'] = array(
 	'place_id' => array(
 		'type' 					=> 'INT',
 		'constraint' 			=> 16,
