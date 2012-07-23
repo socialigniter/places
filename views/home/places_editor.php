@@ -1,18 +1,26 @@
-<form name="<?= $form_name ?>" id="<?= $form_name ?>" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
+<form name="content_editor_form" id="content_editor_form" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
 
 	<div id="content_wide_content">
 		<h3>Title</h3>
 		<input type="text" name="title" id="title" class="input_full" placeholder="Joes Oyster Shack" value="<?= $title ?>">
+		<span id="title_error"></span>	
+	
 		<p id="title_slug" class="slug_url"></p>
 		
 		<div id="place_address">
 			<h3>Address</h3>
-			<p><input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>"></p>
+			<p>
+				<input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>">
+				<span id="address_error"></span>
+			</p>
 			<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 			<p>
-				<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">
+				<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">	
 				<input type="text" name="region" id="region" class="input_mini" placeholder="DC" value="<?= $region ?>">
 				<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
+				<span id="locality_error"></span>			
+				<span id="region_error"></span>			
+				<span id="postal_error"></span>
 			</p>
 			<p><?= country_dropdown('country', config_item('countries'), $country) ?></p>
 			<p><a href="#" id="place_map_it">Map It</a></p>
@@ -62,29 +70,36 @@
 <script type="text/javascript">
 // Elements for Placeholder
 var validation_rules = [{
-	'element' 	: '#title', 
-	'holder'	: 'Joes Oyster Shack', 
-	'message'	: 'You need a place title'
+	'selector' 	: '#title', 
+	'rule'		: 'require',
+	'field'		: 'Your place needs a Title',
+	'action'	: 'label'
 },{
-	'element' 	: '#address', 
-	'holder'	: '15229 Some St.', 
-	'message'	: 'You need an address'
+	'selector' 	: '#address', 
+	'rule'		: 'require',
+	'field'		: 'Your Place needs an Address',
+	'action'	: 'label'				
 },{
-	'element' 	: '#district', 
-	'holder'	: 'Waterfront', 
-	'message'	: ''	
+	'selector' 	: '#district', 
+	'rule'		: 'require',
+	'field'		: 'Your Place needs an Address',
+	'action'	: 'label'	
+
 },{
-	'element' 	: '#locality', 
-	'holder'	: 'Someville', 
-	'message'	: 'You need a city'	
+	'selector' 	: '#locality', 
+	'rule'		: 'require',
+	'field'		: 'Your Place needs an City',
+	'action'	: 'label'
 },{
-	'element' 	: '#region', 
-	'holder'	: 'DC', 
-	'message'	: ''	
+	'selector' 	: '#region', 
+	'rule'		: 'require',
+	'field'		: 'Your Place needs an State',
+	'action'	: 'label'
 },{
-	'element' 	: '#postal', 
-	'holder'	: '90000', 
-	'message'	: ''	
+	'selector' 	: '#postal', 
+	'rule'		: 'require',
+	'field'		: 'Your Place needs an Postal Code',
+	'action'	: 'label'
 }];
 
 $(document).ready(function()
@@ -107,7 +122,6 @@ $(document).ready(function()
 		}
 	});
 
-
 	// Click Map It
 	$('#place_map_it').live('click', function(e)
 	{
@@ -115,7 +129,6 @@ $(document).ready(function()
 		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
 		renderMapTile('#place_map_map', address);
 	});
-
 
 	// Do Existing Address
 	if (($('#geo_lat').val() != '0.00') && ($('#geo_long').val() != '0.00'))
@@ -127,7 +140,6 @@ $(document).ready(function()
 	{
 		renderMapTile('#place_map_map', 'Portland, OR');
 	}
-	
 
 	// Add Details
 	$('#add_details').live('click', function(eve)
@@ -137,7 +149,6 @@ $(document).ready(function()
 		$('#place_details').show('slow');
 	});
 
-
 	// Add Category
 	$('#category_id').categoryManager(
 	{
@@ -146,6 +157,10 @@ $(document).ready(function()
 		type		: 'category',
 		title		: 'Add Place Category'
 	});
+	
+	// Specify API URL
+	$.data(document.body, 'api_url', $('#places_editor').attr('action'));	
+	
 
 });
 </script>
