@@ -80,12 +80,6 @@ var validation_rules = [{
 	'field'		: 'Your Place needs an Address',
 	'action'	: 'label'				
 },{
-	'selector' 	: '#district', 
-	'rule'		: 'require',
-	'field'		: 'Your Place needs an Address',
-	'action'	: 'label'	
-
-},{
 	'selector' 	: '#locality', 
 	'rule'		: 'require',
 	'field'		: 'Your Place needs an City',
@@ -157,10 +151,10 @@ $(document).ready(function()
 		type		: 'category',
 		title		: 'Add Place Category'
 	});
-	
+
 	// Specify API URL
-	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));	
-	
+	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));
+
 
 });
 </script>
