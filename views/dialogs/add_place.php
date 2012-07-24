@@ -2,14 +2,14 @@
 	
 	<div id="place_address">
 		<h3>Title</h3>
-		<p><input type="text" name="title" id="title" class="input_bigger" value="<?= $title ?>"></p>	
+		<p><input type="text" name="title" id="title" class="input_bigger" placeholder="Joes Oyster Shack" value="<?= $title ?>"></p>	
 		<h3>Address</h3>
-		<p><input type="text" name="address" id="address" class="input_bigger" value="<?= $address ?>"></p>
-		<p><input type="text" name="district" id="district" class="input_bigger" value="<?= $district ?>"></p>
+		<p><input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>"></p>
+		<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 		<p>
-			<input type="text" name="locality" id="locality" class="input_small" value="<?= $locality ?>">
-			<input type="text" name="region" id="region" class="input_mini" value="<?= $region ?>">
-			<input type="text" name="postal" id="postal" class="input_small" value="<?= $postal ?>">
+			<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">
+			<input type="text" name="region" id="region" class="input_mini" placeholder="CA" value="<?= $region ?>">
+			<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
 		</p>
 		<div id="place_country"><?php // country_dropdown('country', config_item('countries'), $country) ?></div>
 		<a href="#" id="place_map_it">Map It</a>

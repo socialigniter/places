@@ -16,7 +16,7 @@
 			<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 			<p>
 				<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">	
-				<input type="text" name="region" id="region" class="input_mini" placeholder="DC" value="<?= $region ?>">
+				<input type="text" name="region" id="region" class="input_mini" placeholder="CA" value="<?= $region ?>">
 				<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
 				<span id="locality_error"></span>			
 				<span id="region_error"></span>			
@@ -101,30 +101,10 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
-
-	// Autocomplete Tags
+	// Tags
 	autocomplete("[name=tags]", 'api/tags/all');
 
-
-	// On Completing Address
-	$('[name=postal], [name=region], [name=locality]').live('blur', function()
-	{
-		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
-		{
-			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
-			renderMapTile('#place_map_map', address);
-		}
-	});
-
-	// Click Map It
-	$('#place_map_it').live('click', function(e)
-	{
-		e.preventDefault();
-		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
-		renderMapTile('#place_map_map', address);
-	});
-
-	// Do Existing Address
+	// Existing Address
 	if (($('#geo_lat').val() != '0.00') && ($('#geo_long').val() != '0.00'))
 	{
 		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
@@ -136,9 +116,9 @@ $(document).ready(function()
 	}
 
 	// Add Details
-	$('#add_details').live('click', function(eve)
+	$('#add_details').live('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		$(this).hide();
 		$('#place_details').show('slow');
 	});
@@ -154,7 +134,6 @@ $(document).ready(function()
 
 	// Specify API URL
 	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));
-
 
 });
 </script>
