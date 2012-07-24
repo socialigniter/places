@@ -36,20 +36,20 @@ $(document).ready(function()
 {
 
 	// Finish Entering Data
-	$('[name=postal], [name=region], [name=locality]').live('blur', function()
+	$('#place_postal, #place_region, #place_locality').live('blur', function()
 	{
-		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
+		if ($("#place_postal").val().length > 0 && $("#place_locality").val().length > 0 && $("#place_region").val().length > 0 && $("#place_address").val().length > 0) 
 		{
-			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
+			var address = $('#place_address').val() + " " + $('#place_locality').val() + ", " + $('#place_region').val() + " " + $('#place_postal').val();
 			renderMapTile('#place_map_map', address);
 		}
 	});
 
 	// Click Map It
-	$('#place_map_it').live('click', function(e)
+	$('.place_map_it').live('click', function(e)
 	{
 		e.preventDefault();
-		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
+		var address = $('#place_address').val() + " " + $('#place_locality').val() + ", " + $('#place_region').val() + " " + $('#place_postal').val();	
 		renderMapTile('#place_map_map', address);
 	});
 

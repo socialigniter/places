@@ -1,22 +1,30 @@
 <form name="create_place" method="post" id="create_place" enctype="multipart/form-data">
 	
-	<div id="place_address">
+	<div id="dialog_place_address_container">
 		<h3>Title</h3>
-		<p><input type="text" name="title" id="title" class="input_bigger" placeholder="Joes Oyster Shack" value="<?= $title ?>"></p>	
-		<h3>Address</h3>
-		<p><input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>"></p>
-		<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 		<p>
-			<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">
-			<input type="text" name="region" id="region" class="input_mini" placeholder="CA" value="<?= $region ?>">
-			<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
+			<input type="text" name="title" id="title" class="input_bigger" placeholder="Joes Oyster Shack" value="<?= $title ?>">
+			<span id="title_error"></span>
+		</p>	
+		<h3>Address</h3>
+		<p>
+			<input type="text" name="address" id="place_address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>">
+			<span id="place_address_error"></span>
 		</p>
-		<div id="place_country"><?php // country_dropdown('country', config_item('countries'), $country) ?></div>
-		<a href="#" id="place_map_it">Map It</a>
+		<p><input type="text" name="district" id="place_district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
+		<p>
+			<input type="text" name="locality" id="place_locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">
+			<input type="text" name="region" id="place_region" class="input_mini" placeholder="CA" value="<?= $region ?>">
+			<input type="text" name="postal" id="place_postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
+			<span id="place_locality_error"></span>			
+			<span id="place_region_error"></span>			
+			<span id="place_postal_error"></span>
+		</p>
+		<a href="#" id="dialog_place_map_it" class="place_map_it">Map It</a>
 		<div class="clear"></div>
 	</div>
 
-	<div id="place_map">
+	<div id="dialog_place_map">
 		<h3>Map</h3>
 		<div id="place_map_map" class="map"></div>
 	</div>
