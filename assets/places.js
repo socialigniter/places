@@ -1,8 +1,6 @@
 /* Google Maps API Functions */
 function renderMapTile(element, address)
 {
-	console.log('heeeere: ' + element)
-
 	$(element).gmap3(
 	{
 		action : 'getLatLng',
@@ -10,9 +8,7 @@ function renderMapTile(element, address)
 		callback : function(result)
 		{			
 			if (result)
-			{
-				console.log(result);
-			
+			{			
 				$(this).gmap3(
 				{
 					action: 'addMarker',
@@ -42,16 +38,14 @@ function renderMapTile(element, address)
 	{
 		var settings = {
 			action		: '',
-			module		: '',
-			type		: '',
-			title		: '',
-			parent 		: false,
-			category_id	: ''
+			title		: ''
 		};
 
 		options = $.extend({}, settings, options);
+		
+		$select_element = $(this);
 
-		$(this).change(function()
+		$select_element.change(function()
 		{	
 			if ($(this).val() == 'add_content')
 			{
@@ -120,8 +114,8 @@ function renderMapTile(element, address)
 												if (result.status == 'success')
 												{											
 													// Makes Places Trigger Proper
-													$('#location_id').append('<option value="' + result.data.content_id + '">' + result.data.title + '</option>');												
-													$('#location_id').val(result.data.content_id);
+													$select_element.append('<option value="' + result.data.content_id + '">' + result.data.title + '</option>');												
+													$select_element.val(result.data.content_id);
 				
 													$create_place_dialog.dialog('close');
 													$create_place_dialog.remove();
@@ -148,9 +142,9 @@ function renderMapTile(element, address)
 	};
 }) (jQuery);
 
+
 $(document).ready(function()
 {
-
 	// Finish Entering Data
 	$('#place_postal, #place_region, #place_locality').live('blur', function()
 	{
