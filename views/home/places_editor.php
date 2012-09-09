@@ -3,27 +3,28 @@
 	<div id="content_wide_content">
 		<h3>Title</h3>
 		<input type="text" name="title" id="title" class="input_full" placeholder="Joes Oyster Shack" value="<?= $title ?>">
-		<span id="title_error"></span>	
-	
+		<span id="title_error"></span>
 		<p id="title_slug" class="slug_url"></p>
 		
-		<div id="place_address">
+		<div id="place_address_container">
 			<h3>Address</h3>
 			<p>
-				<input type="text" name="address" id="address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>">
-				<span id="address_error"></span>
+				<input type="text" name="address" id="place_address" class="input_bigger" placeholder="15229 Some St." value="<?= $address ?>">
+				<span id="place_address_error"></span>
 			</p>
-			<p><input type="text" name="district" id="district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>"></p>
 			<p>
-				<input type="text" name="locality" id="locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">	
-				<input type="text" name="region" id="region" class="input_mini" placeholder="DC" value="<?= $region ?>">
-				<input type="text" name="postal" id="postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
-				<span id="locality_error"></span>			
-				<span id="region_error"></span>			
-				<span id="postal_error"></span>
+				<input type="text" name="district" id="place_district" class="input_bigger" placeholder="Waterfront" value="<?= $district ?>">
+			</p>
+			<p>
+				<input type="text" name="locality" id="place_locality" class="input_small" placeholder="Someville" value="<?= $locality ?>">	
+				<input type="text" name="region" id="place_region" class="input_mini" placeholder="CA" value="<?= $region ?>">
+				<input type="text" name="postal" id="place_postal" class="input_small" placeholder="90000" value="<?= $postal ?>">
+				<span id="place_locality_error"></span>			
+				<span id="place_region_error"></span>			
+				<span id="place_postal_error"></span>
 			</p>
 			<p><?= country_dropdown('country', config_item('countries'), $country) ?></p>
-			<p><a href="#" id="place_map_it">Map It</a></p>
+			<p><a href="#" id="place_map_it" class="place_map_it">Map It</a></p>
 		</div>
 		<div id="place_map">
 			<h3>Map</h3>
@@ -75,22 +76,22 @@ var validation_rules = [{
 	'field'		: 'Your place needs a Title',
 	'action'	: 'label'
 },{
-	'selector' 	: '#address', 
+	'selector' 	: '#place_address', 
 	'rule'		: 'require',
 	'field'		: 'Your Place needs an Address',
 	'action'	: 'label'				
 },{
-	'selector' 	: '#locality', 
+	'selector' 	: '#place_locality', 
 	'rule'		: 'require',
 	'field'		: 'Your Place needs an City',
 	'action'	: 'label'
 },{
-	'selector' 	: '#region', 
+	'selector' 	: '#place_region', 
 	'rule'		: 'require',
 	'field'		: 'Your Place needs an State',
 	'action'	: 'label'
 },{
-	'selector' 	: '#postal', 
+	'selector' 	: '#place_postal', 
 	'rule'		: 'require',
 	'field'		: 'Your Place needs an Postal Code',
 	'action'	: 'label'
@@ -101,33 +102,13 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
-
-	// Autocomplete Tags
+	// Tags
 	autocomplete("[name=tags]", 'api/tags/all');
 
-
-	// On Completing Address
-	$('[name=postal], [name=region], [name=locality]').live('blur', function()
-	{
-		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
-		{
-			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
-			renderMapTile('#place_map_map', address);
-		}
-	});
-
-	// Click Map It
-	$('#place_map_it').live('click', function(e)
-	{
-		e.preventDefault();
-		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
-		renderMapTile('#place_map_map', address);
-	});
-
-	// Do Existing Address
+	// Existing Address
 	if (($('#geo_lat').val() != '0.00') && ($('#geo_long').val() != '0.00'))
 	{
-		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
+		var address = $('#place_address').val() + " " + $('#place_locality').val() + ", " + $('#place_region').val() + " " + $('#place_postal').val();
 		renderMapTile('#place_map_map', address);
 	}
 	else
@@ -136,9 +117,9 @@ $(document).ready(function()
 	}
 
 	// Add Details
-	$('#add_details').live('click', function(eve)
+	$('#add_details').live('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		$(this).hide();
 		$('#place_details').show('slow');
 	});
@@ -154,7 +135,6 @@ $(document).ready(function()
 
 	// Specify API URL
 	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));
-
 
 });
 </script>

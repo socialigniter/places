@@ -147,3 +147,26 @@ function renderMapTile(element, address)
 		});
 	};
 }) (jQuery);
+
+$(document).ready(function()
+{
+
+	// Finish Entering Data
+	$('#place_postal, #place_region, #place_locality').live('blur', function()
+	{
+		if ($("#place_postal").val().length > 0 && $("#place_locality").val().length > 0 && $("#place_region").val().length > 0 && $("#place_address").val().length > 0) 
+		{
+			var address = $('#place_address').val() + " " + $('#place_locality').val() + ", " + $('#place_region').val() + " " + $('#place_postal').val();
+			renderMapTile('#place_map_map', address);
+		}
+	});
+
+	// Click Map It
+	$('.place_map_it').live('click', function(e)
+	{
+		e.preventDefault();
+		var address = $('#place_address').val() + " " + $('#place_locality').val() + ", " + $('#place_region').val() + " " + $('#place_postal').val();	
+		renderMapTile('#place_map_map', address);
+	});
+
+});
