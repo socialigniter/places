@@ -11,7 +11,7 @@ class Places_model extends CI_Model
  		$this->db->select('content.*, places.*, users.username, users.gravatar, users.name, users.image');    
  		$this->db->from('content');
   		$this->db->join('users', 'users.user_id = content.user_id');		  
- 		$this->db->join('places', 'places.content_id = content.content_id');
+ 		$this->db->join('places', 'places.content_id = content.content_id', 'left');
  		$this->db->where('content.'.$parameter, $value);
 	 	$this->db->where('content.status !=', 'D');
 		$this->db->limit(1);
@@ -23,7 +23,7 @@ class Places_model extends CI_Model
  		$this->db->select('content.*, places.*, users.username, users.gravatar, users.name, users.image');    
  		$this->db->from('content');
   		$this->db->join('users', 'users.user_id = content.user_id');		  
- 		$this->db->join('places', 'places.content_id = content.content_id');
+ 		$this->db->join('places', 'places.content_id = content.content_id', 'left');
  		$this->db->where('content.'.$parameter, $value);
 
  		if ($status == 'all')
